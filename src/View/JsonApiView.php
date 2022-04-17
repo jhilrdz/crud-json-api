@@ -304,7 +304,6 @@ class JsonApiView extends View
             // 2022-04-16 HRM: If user created a custom dynamic schema for custom Plugin... use it
             if (!$schemaClass) {
                 $schemaClass = App::className($pluginName . 'DynamicEntity', 'Schema\JsonApi', 'Schema');
-                debug($schemaClass);
             }
 
             // If user created a custom dynamic schema for the Application... use it
