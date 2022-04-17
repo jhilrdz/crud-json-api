@@ -85,6 +85,9 @@ class PaginationListener extends BaseListener
         if ($query['sort'] === null && $request->getQuery('sort')) {
             $query['sort'] = $request->getQuery('sort');
         }
+        if ($request->getQuery('direction') === 'desc') {
+            $query['direction'] = 'desc';
+        }
 
         $fullBase = (bool)$this->_controller()->Crud->getConfig('listeners.jsonApi.absoluteLinks');
 
