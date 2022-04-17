@@ -298,15 +298,21 @@ class JsonApiView extends View
 
             $entityName = $pluginName . $entityName;
 
-            // If user created a custom entity schema... use it
+            // If user created a custom entity schema for the Model... use it
             $schemaClass = App::className($entityName, 'Schema\JsonApi', 'Schema');
 
-            // If user created a custom dynamic schema... use it
+            // 2022-04-16 HRM: If user created a custom dynamic schema for custom Plugin... use it
+            if (!$schemaClass) {
+                $schemaClass = App::className($pluginName . 'DynamicEntity', 'Schema\JsonApi', 'Schema');
+                debug($schemaClass);
+            }
+
+            // If user created a custom dynamic schema for the Application... use it
             if (!$schemaClass) {
                 $schemaClass = App::className('DynamicEntity', 'Schema\JsonApi', 'Schema');
             }
 
-            // Otherwise use the dynamic schema provided by Crud
+            // Otherwise use the dynamic schema provided by this Crud-Api plugin
             if (!$schemaClass) {
                 $schemaClass = App::className('CrudJsonApi.DynamicEntity', 'Schema\JsonApi', 'Schema');
             }
